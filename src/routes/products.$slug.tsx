@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowLeft, Check, Minus, Plus, Shield, Truck, Headphones, Wrench } from "lucide-react";
-import { getProductBySlug, products } from "@/data/products";
+import { getProductBySlug, products, type Product } from "@/data/products";
 import { useCart } from "@/hooks/use-cart";
 import { ProductCard } from "@/components/ProductCard";
 import { toast } from "sonner";
@@ -41,7 +41,7 @@ export const Route = createFileRoute("/products/$slug")({
 const serviceIcons = [Shield, Truck, Headphones, Wrench];
 
 function ProductDetail() {
-  const { product } = Route.useLoaderData();
+  const { product } = Route.useLoaderData() as { product: Product };
   const { add } = useCart();
   const [activeImage, setActiveImage] = useState(0);
   const [color, setColor] = useState(product.colors[0]);
