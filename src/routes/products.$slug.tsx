@@ -12,18 +12,21 @@ export const Route = createFileRoute("/products/$slug")({
     if (!product) throw notFound();
     return { product };
   },
-  head: (ctx: { loaderData?: { product: ReturnType<typeof getProductBySlug> } }) => ({
-    meta: ctx.loaderData?.product
-      ? [
-          { title: `${ctx.loaderData.product.name} — LUXE Atelier` },
-          { name: "description", content: loaderData.product.description[0] },
-          { property: "og:title", content: `${loaderData.product.name} — LUXE Atelier` },
-          { property: "og:description", content: loaderData.product.description[0] },
-          { property: "og:image", content: loaderData.product.images[0] },
-          { name: "twitter:image", content: loaderData.product.images[0] },
-        ]
-      : [],
-  }),
+  head: (ctx) => {
+    const p = ctx.loaderData?.product;
+    return {
+      meta: p
+        ? [
+            { title: `${p.name} — LUXE Atelier` },
+            { name: "description", content: p.description[0] },
+            { property: "og:title", content: `${p.name} — LUXE Atelier` },
+            { property: "og:description", content: p.description[0] },
+            { property: "og:image", content: p.images[0] },
+            { name: "twitter:image", content: p.images[0] },
+          ]
+        : [],
+    };
+  },
   component: ProductDetail,
   notFoundComponent: () => (
     <div className="max-w-3xl mx-auto px-5 py-32 text-center">
