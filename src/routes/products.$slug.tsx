@@ -12,10 +12,10 @@ export const Route = createFileRoute("/products/$slug")({
     if (!product) throw notFound();
     return { product };
   },
-  head: ({ loaderData }) => ({
-    meta: loaderData
+  head: (ctx: { loaderData?: { product: ReturnType<typeof getProductBySlug> } }) => ({
+    meta: ctx.loaderData?.product
       ? [
-          { title: `${loaderData.product.name} — LUXE Atelier` },
+          { title: `${ctx.loaderData.product.name} — LUXE Atelier` },
           { name: "description", content: loaderData.product.description[0] },
           { property: "og:title", content: `${loaderData.product.name} — LUXE Atelier` },
           { property: "og:description", content: loaderData.product.description[0] },

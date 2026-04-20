@@ -50,19 +50,20 @@ function ProductsPage() {
     return list;
   }, [activeCategory, activeColor, sort]);
 
+  type Search = z.infer<typeof searchSchema>;
   const setCategory = (slug: string) => {
     navigate({
-      search: (prev) => ({ ...prev, category: slug === "all" ? undefined : slug }),
+      search: (prev: Search) => ({ ...prev, category: slug === "all" ? undefined : slug }),
     });
   };
   const setColor = (name?: string) => {
     navigate({
-      search: (prev) => ({ ...prev, color: prev.color === name ? undefined : name }),
+      search: (prev: Search) => ({ ...prev, color: prev.color === name ? undefined : name }),
     });
   };
   const setSort = (s: "featured" | "price-asc" | "price-desc") => {
     navigate({
-      search: (prev) => ({ ...prev, sort: s === "featured" ? undefined : s }),
+      search: (prev: Search) => ({ ...prev, sort: s === "featured" ? undefined : s }),
     });
   };
 
