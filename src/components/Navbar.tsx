@@ -2,17 +2,19 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { ShoppingBag, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useCart } from "@/hooks/use-cart";
+import { languages, useLanguage } from "@/lib/i18n";
 
 const links = [
-  { to: "/" as const, label: "Home" },
-  { to: "/products" as const, label: "Shop" },
-  { to: "/about" as const, label: "About" },
-  { to: "/blog" as const, label: "Journal" },
-  { to: "/contact" as const, label: "Contact" },
+  { to: "/" as const, label: "nav.home" },
+  { to: "/products" as const, label: "nav.shop" },
+  { to: "/about" as const, label: "nav.about" },
+  { to: "/blog" as const, label: "nav.blog" },
+  { to: "/contact" as const, label: "nav.contact" },
 ];
 
 export function Navbar() {
   const { count } = useCart();
+  const { language, setLanguage, t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const path = useRouterState({ select: (s) => s.location.pathname });
@@ -55,17 +57,27 @@ export function Navbar() {
               activeProps={{ className: "text-gold" }}
               activeOptions={{ exact: l.to === "/" }}
             >
-              {l.label}
+              {t(l.label)}
               <span className="absolute -bottom-2 left-0 w-0 h-px bg-gold transition-all duration-300 group-hover:w-full" />
             </Link>
           ))}
         </nav>
 
         <div className="flex items-center gap-4">
+          <select
+            value={language}
+            onChange={(e) => setLanguage(e.target.value as typeof language)}
+            className="bg-surface-elevated border border-border px-2 py-1 text-[10px] tracking-widest uppercase focus:border-gold focus:outline-none"
+            aria-label="Language"
+          >
+            {languages.map((l) => (
+              <option key={l.code} value={l.code}>{l.short}</option>
+            ))}
+          </select>
           <Link
             to="/cart"
             className="relative p-2 hover:text-gold transition-colors"
-            aria-label="Cart"
+            aria-label={t("nav.cart")}
           >
             <ShoppingBag className="w-5 h-5" />
             {count > 0 && (
@@ -77,7 +89,7 @@ export function Navbar() {
           <button
             className="lg:hidden p-2"
             onClick={() => setOpen((o) => !o)}
-            aria-label="Menu"
+            aria-label={t("nav.menu")}
           >
             {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -95,7 +107,7 @@ export function Navbar() {
                 activeProps={{ className: "text-gold" }}
                 activeOptions={{ exact: l.to === "/" }}
               >
-                {l.label}
+                {t(l.label)}
               </Link>
             ))}
           </nav>

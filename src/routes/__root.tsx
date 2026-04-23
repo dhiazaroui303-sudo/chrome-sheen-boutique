@@ -2,6 +2,7 @@ import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/r
 import { Toaster } from "@/components/ui/sonner";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { LanguageProvider } from "@/lib/i18n";
 
 import appCss from "../styles.css?url";
 
@@ -71,13 +72,13 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   return (
-    <>
+    <LanguageProvider>
       <Navbar />
       <main className="min-h-screen pt-16 lg:pt-20">
         <Outlet />
       </main>
       <Footer />
       <Toaster theme="dark" position="bottom-right" />
-    </>
+    </LanguageProvider>
   );
 }

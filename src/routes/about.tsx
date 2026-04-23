@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useLanguage } from "@/lib/i18n";
 
 export const Route = createFileRoute("/about")({
   component: About,
@@ -17,17 +18,17 @@ export const Route = createFileRoute("/about")({
 });
 
 function About() {
+  const { t } = useLanguage();
+
   return (
     <div>
       <section className="max-w-4xl mx-auto px-5 lg:px-10 py-20 lg:py-28 text-center">
-        <p className="text-[10px] tracking-[0.4em] uppercase text-gold">Our Story</p>
+        <p className="text-[10px] tracking-[0.4em] uppercase text-gold">{t("about.label")}</p>
         <h1 className="font-display text-5xl lg:text-7xl mt-5 leading-[1.05]">
-          Engineered for those who <span className="italic text-gradient-gold">refuse</span> compromise.
+          {t("about.titleA")} <span className="italic text-gradient-gold">{t("about.titleB")}</span> {t("about.titleC")}
         </h1>
         <p className="text-lg text-muted-foreground mt-8 leading-relaxed max-w-2xl mx-auto">
-          LUXE Atelier was founded in 2014 by a third-generation barber and an
-          aerospace engineer. We were tired of tools designed for spreadsheets,
-          not for the hand. So we built our own.
+          {t("about.copy")}
         </p>
       </section>
 
@@ -64,10 +65,10 @@ function About() {
       <section className="max-w-4xl mx-auto px-5 lg:px-10 py-20 text-center">
         <div className="gold-divider w-24 mx-auto mb-10" />
         <p className="font-display text-3xl lg:text-4xl italic leading-snug">
-          "A great tool is not a purchase. It is a partnership for the length of a career."
+           "{t("about.quote")}"
         </p>
         <p className="text-xs tracking-[0.3em] uppercase text-gold mt-8">
-          — Marco Verdi, Founder
+          {t("about.founder")}
         </p>
       </section>
     </div>

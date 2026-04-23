@@ -4,6 +4,7 @@ import { z } from "zod";
 import { products, categories, allColors } from "@/data/products";
 import { ProductCard } from "@/components/ProductCard";
 import { SlidersHorizontal, X } from "lucide-react";
+import { useLanguage } from "@/lib/i18n";
 
 const searchSchema = z.object({
   category: z.string().optional(),
@@ -32,6 +33,7 @@ function ProductsPage() {
   const search = Route.useSearch();
   const navigate = useNavigate({ from: Route.fullPath });
   const [mobileFilters, setMobileFilters] = useState(false);
+  const { t, category } = useLanguage();
 
   const activeCategory = search.category ?? "all";
   const activeColor = search.color;
@@ -71,7 +73,7 @@ function ProductsPage() {
     <aside className="space-y-8">
       <div>
         <h3 className="text-[10px] tracking-[0.3em] uppercase text-gold mb-4">
-          Category
+          {t("products.category")}
         </h3>
         <ul className="space-y-1">
           {categories.map((cat) => {
@@ -86,7 +88,7 @@ function ProductsPage() {
                       : "border-transparent text-muted-foreground hover:text-foreground hover:border-border"
                   }`}
                 >
-                  {cat.name}
+                  {category(cat.slug)}
                 </button>
               </li>
             );
@@ -98,7 +100,7 @@ function ProductsPage() {
 
       <div>
         <h3 className="text-[10px] tracking-[0.3em] uppercase text-gold mb-4">
-          Color
+          {t("products.color")}
         </h3>
         <div className="flex flex-wrap gap-3">
           {allColors.map((c) => {
@@ -122,7 +124,7 @@ function ProductsPage() {
             onClick={() => setColor(undefined)}
             className="mt-4 text-xs text-muted-foreground hover:text-gold inline-flex items-center gap-1"
           >
-            <X className="w-3 h-3" /> Clear color
+            <X className="w-3 h-3" /> {t("products.clearColor")}
           </button>
         )}
       </div>
@@ -131,7 +133,7 @@ function ProductsPage() {
 
       <div>
         <h3 className="text-[10px] tracking-[0.3em] uppercase text-gold mb-4">
-          Price Range
+          {t("products.priceRange")}
         </h3>
         <div className="space-y-3">
           <input
@@ -153,12 +155,12 @@ function ProductsPage() {
   return (
     <div className="max-w-7xl mx-auto px-5 lg:px-10 py-12 lg:py-16">
       <div className="mb-10">
-        <p className="text-[10px] tracking-[0.4em] uppercase text-gold">Shop</p>
+        <p className="text-[10px] tracking-[0.4em] uppercase text-gold">{t("products.shop")}</p>
         <h1 className="font-display text-4xl lg:text-5xl mt-3">
-          The Atelier Collection
+          {t("products.title")}
         </h1>
         <p className="text-muted-foreground mt-3 max-w-xl">
-          Each piece engineered, balanced and tested to elevate your craft.
+          {t("products.copy")}
         </p>
       </div>
 
@@ -171,26 +173,26 @@ function ProductsPage() {
               onClick={() => setMobileFilters(true)}
               className="lg:hidden inline-flex items-center gap-2 text-sm border border-border px-4 py-2 hover:border-gold transition-colors"
             >
-              <SlidersHorizontal className="w-4 h-4" /> Filters
+              <SlidersHorizontal className="w-4 h-4" /> {t("products.filters")}
             </button>
             <p className="text-xs tracking-widest uppercase text-muted-foreground hidden lg:block">
-              {filtered.length} {filtered.length === 1 ? "piece" : "pieces"}
+              {filtered.length} {filtered.length === 1 ? t("products.piece") : t("products.pieces")}
             </p>
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value as typeof sort)}
               className="bg-surface-elevated border border-border px-4 py-2 text-sm focus:border-gold focus:outline-none transition-colors"
             >
-              <option value="featured">Sort: Featured</option>
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
+              <option value="featured">{t("products.sortFeatured")}</option>
+              <option value="price-asc">{t("products.sortAsc")}</option>
+              <option value="price-desc">{t("products.sortDesc")}</option>
             </select>
           </div>
 
           {filtered.length === 0 ? (
             <div className="text-center py-20">
               <p className="text-muted-foreground">
-                No products match your filters.
+                {t("products.empty")}
               </p>
             </div>
           ) : (
@@ -211,8 +213,8 @@ function ProductsPage() {
           />
           <div className="absolute right-0 top-0 bottom-0 w-[85%] max-w-sm bg-surface border-l border-border p-6 overflow-y-auto">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-sm tracking-[0.3em] uppercase">Filters</h2>
-              <button onClick={() => setMobileFilters(false)} aria-label="Close">
+              <h2 className="text-sm tracking-[0.3em] uppercase">{t("products.filters")}</h2>
+              <button onClick={() => setMobileFilters(false)} aria-label={t("products.close")}>
                 <X className="w-5 h-5" />
               </button>
             </div>

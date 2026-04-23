@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { MapPin, Mail, Phone } from "lucide-react";
 import { toast } from "sonner";
+import { useLanguage } from "@/lib/i18n";
 
 export const Route = createFileRoute("/contact")({
   component: Contact,
@@ -21,11 +22,12 @@ export const Route = createFileRoute("/contact")({
 
 function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const { t } = useLanguage();
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Message received", {
-      description: "Our concierge will respond within 4 hours.",
+    toast.success(t("contact.received"), {
+      description: t("contact.response"),
     });
     setForm({ name: "", email: "", message: "" });
   };
@@ -33,10 +35,10 @@ function Contact() {
   return (
     <div className="max-w-7xl mx-auto px-5 lg:px-10 py-12 lg:py-16">
       <div className="mb-12">
-        <p className="text-[10px] tracking-[0.4em] uppercase text-gold">Contact</p>
-        <h1 className="font-display text-5xl lg:text-6xl mt-3">Speak with the atelier</h1>
+        <p className="text-[10px] tracking-[0.4em] uppercase text-gold">{t("contact.label")}</p>
+        <h1 className="font-display text-5xl lg:text-6xl mt-3">{t("contact.title")}</h1>
         <p className="text-muted-foreground mt-4 max-w-xl">
-          Our concierge team responds within 4 hours, 24 hours a day, in 12 languages.
+          {t("contact.copy")}
         </p>
       </div>
 
@@ -44,7 +46,7 @@ function Contact() {
         <form onSubmit={submit} className="luxe-card p-8 lg:p-10 rounded-sm space-y-6">
           <div>
             <label className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground block mb-2">
-              Name
+              {t("contact.name")}
             </label>
             <input
               required
@@ -55,7 +57,7 @@ function Contact() {
           </div>
           <div>
             <label className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground block mb-2">
-              Email
+              {t("contact.email")}
             </label>
             <input
               required
@@ -67,7 +69,7 @@ function Contact() {
           </div>
           <div>
             <label className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground block mb-2">
-              Message
+              {t("contact.message")}
             </label>
             <textarea
               required
@@ -81,14 +83,14 @@ function Contact() {
             type="submit"
             className="bg-gradient-gold text-primary-foreground px-10 py-4 text-xs tracking-[0.25em] uppercase font-semibold hover:opacity-90 transition-opacity shadow-gold"
           >
-            Send Message
+            {t("contact.send")}
           </button>
         </form>
 
         <aside className="space-y-6">
           <div className="luxe-card p-7 rounded-sm">
             <h3 className="text-[10px] tracking-[0.3em] uppercase text-gold mb-5">
-              The Atelier
+               {t("contact.atelier")}
             </h3>
             <ul className="space-y-4 text-sm">
               <li className="flex gap-3">
@@ -118,7 +120,7 @@ function Contact() {
               <MapPin className="w-10 h-10 text-gold mx-auto" />
               <p className="font-display text-xl mt-3">Milano</p>
               <p className="text-xs tracking-widest uppercase text-muted-foreground mt-1">
-                Visit by appointment
+                {t("contact.visit")}
               </p>
             </div>
           </div>

@@ -4,6 +4,7 @@ import clipperImg from "@/assets/clipper.jpg";
 import hairdryerImg from "@/assets/hairdryer.jpg";
 import accessoriesImg from "@/assets/accessories.jpg";
 import straightenerImg from "@/assets/straightener.jpg";
+import { useLanguage } from "@/lib/i18n";
 
 export const Route = createFileRoute("/blog")({
   component: Blog,
@@ -57,14 +58,15 @@ const posts = [
 ];
 
 function Blog() {
+  const { t } = useLanguage();
+
   return (
     <div className="max-w-7xl mx-auto px-5 lg:px-10 py-12 lg:py-16">
       <div className="mb-12">
-        <p className="text-[10px] tracking-[0.4em] uppercase text-gold">Journal</p>
-        <h1 className="font-display text-5xl lg:text-6xl mt-3">Notes from the workshop</h1>
+        <p className="text-[10px] tracking-[0.4em] uppercase text-gold">{t("blog.label")}</p>
+        <h1 className="font-display text-5xl lg:text-6xl mt-3">{t("blog.title")}</h1>
         <p className="text-muted-foreground mt-4 max-w-xl">
-          Interviews, techniques and reflections from the craftsmen and stylists
-          who shape our work.
+          {t("blog.copy")}
         </p>
       </div>
 
@@ -94,7 +96,7 @@ function Blog() {
                 {post.preview}
               </p>
               <span className="inline-flex items-center gap-2 mt-5 text-xs tracking-[0.25em] uppercase text-gold">
-                Read <ArrowRight className="w-3 h-3" />
+                {t("blog.read")} <ArrowRight className="w-3 h-3" />
               </span>
             </div>
           </article>
