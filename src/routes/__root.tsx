@@ -3,6 +3,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { LanguageProvider } from "@/lib/i18n";
+import { ThemeProvider } from "@/lib/theme";
 
 import appCss from "../styles.css?url";
 
@@ -72,13 +73,15 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   return (
-    <LanguageProvider>
-      <Navbar />
-      <main className="min-h-screen pt-16 lg:pt-20">
-        <Outlet />
-      </main>
-      <Footer />
-      <Toaster theme="dark" position="bottom-right" />
-    </LanguageProvider>
+    <ThemeProvider>
+      <LanguageProvider>
+        <Navbar />
+        <main className="min-h-screen pt-16 lg:pt-20">
+          <Outlet />
+        </main>
+        <Footer />
+        <Toaster theme="system" position="bottom-right" />
+      </LanguageProvider>
+    </ThemeProvider>
   );
 }

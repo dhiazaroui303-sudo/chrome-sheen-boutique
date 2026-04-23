@@ -1,8 +1,9 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { ShoppingBag, Menu, X } from "lucide-react";
+import { ShoppingBag, Menu, X, Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useCart } from "@/hooks/use-cart";
 import { languages, useLanguage } from "@/lib/i18n";
+import { useTheme } from "@/lib/theme";
 
 const links = [
   { to: "/" as const, label: "nav.home" },
@@ -15,6 +16,7 @@ const links = [
 export function Navbar() {
   const { count } = useCart();
   const { language, setLanguage, t } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const path = useRouterState({ select: (s) => s.location.pathname });
@@ -74,6 +76,13 @@ export function Navbar() {
               <option key={l.code} value={l.code}>{l.short}</option>
             ))}
           </select>
+          <button
+            className="relative inline-flex h-9 w-9 items-center justify-center border border-border bg-surface-elevated hover:text-gold transition-colors"
+            onClick={toggleTheme}
+            aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          </button>
           <Link
             to="/cart"
             className="relative p-2 hover:text-gold transition-colors"
