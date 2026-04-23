@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Award, Sparkles, Wrench } from "lucide-react";
+import { ArrowRight, Award, HomeIcon, Sparkles, Wrench } from "lucide-react";
 import { useEffect, useRef } from "react";
-import heroImg from "@/assets/hero.jpg";
+import heroImg from "@/assets/real-estate-hero.jpg";
 import { products, categories } from "@/data/products";
 import { ProductCard } from "@/components/ProductCard";
 import { useLanguage } from "@/lib/i18n";
@@ -39,18 +39,18 @@ function Home() {
       if (!hero || !bg || !content) return;
 
       const ctx = gsap.context(() => {
-        gsap.fromTo(bg, { scale: 1.16, xPercent: -2, opacity: 0.72 }, { scale: 1.06, xPercent: 0, opacity: 1, duration: 1.8, ease: "power3.out" });
-        gsap.fromTo(content.querySelectorAll(".hero-copy"), { x: -72, opacity: 0, filter: "blur(10px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 1, stagger: 0.14, ease: "power3.out", delay: 0.15 });
-        gsap.fromTo(content.querySelectorAll(".hero-action"), { y: 46, opacity: 0, scale: 0.94 }, { y: 0, opacity: 1, scale: 1, duration: 0.95, stagger: 0.12, ease: "back.out(1.7)", delay: 0.55 });
-        gsap.fromTo(content.querySelectorAll(".hero-stat"), { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.75, stagger: 0.1, ease: "power2.out", delay: 0.9 });
+        gsap.fromTo(bg, { scale: 1.08, xPercent: -1, opacity: 0.9 }, { scale: 1.02, xPercent: 0, opacity: 1, duration: 1.6, ease: "power3.out" });
+        gsap.fromTo(content.querySelectorAll(".hero-copy"), { x: -48, opacity: 0, filter: "blur(8px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.95, stagger: 0.12, ease: "power3.out", delay: 0.1 });
+        gsap.fromTo(content.querySelectorAll(".hero-action"), { y: 34, opacity: 0, scale: 0.97 }, { y: 0, opacity: 1, scale: 1, duration: 0.85, stagger: 0.1, ease: "back.out(1.25)", delay: 0.45 });
+        gsap.fromTo(content.querySelectorAll(".hero-stat"), { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.65, stagger: 0.09, ease: "power2.out", delay: 0.78 });
       }, hero);
 
       const moveX = gsap.quickTo(bg, "x", { duration: 0.8, ease: "power3.out" });
       const moveY = gsap.quickTo(bg, "y", { duration: 0.8, ease: "power3.out" });
       const onMove = (event: MouseEvent) => {
         const rect = hero.getBoundingClientRect();
-        moveX(((event.clientX - rect.left) / rect.width - 0.5) * -28);
-        moveY(((event.clientY - rect.top) / rect.height - 0.5) * -18);
+        moveX(((event.clientX - rect.left) / rect.width - 0.5) * -16);
+        moveY(((event.clientY - rect.top) / rect.height - 0.5) * -10);
       };
 
       hero.addEventListener("mousemove", onMove);
