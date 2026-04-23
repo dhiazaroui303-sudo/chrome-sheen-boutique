@@ -5,6 +5,7 @@ import { getProductBySlug, products, type Product } from "@/data/products";
 import { useCart } from "@/hooks/use-cart";
 import { ProductCard } from "@/components/ProductCard";
 import { toast } from "sonner";
+import { useLanguage } from "@/lib/i18n";
 
 export const Route = createFileRoute("/products/$slug")({
   loader: ({ params }) => {
@@ -43,6 +44,7 @@ const serviceIcons = [Shield, Truck, Headphones, Wrench];
 function ProductDetail() {
   const { product } = Route.useLoaderData() as { product: Product };
   const { add } = useCart();
+  const { t, category } = useLanguage();
   const [activeImage, setActiveImage] = useState(0);
   const [color, setColor] = useState(product.colors[0]);
   const [qty, setQty] = useState(1);
@@ -66,8 +68,8 @@ function ProductDetail() {
       },
       qty,
     );
-    toast.success(`${product.name} added to bag`, {
-      description: `${color.name} · Qty ${qty}`,
+    toast.success(`${product.name} ${t("detail.addedBag")}`, {
+      description: `${color.name} · ${t("detail.qty")} ${qty}`,
     });
   };
 
@@ -81,7 +83,7 @@ function ProductDetail() {
         to="/products"
         className="inline-flex items-center gap-2 text-xs tracking-[0.25em] uppercase text-muted-foreground hover:text-gold transition-colors mb-8"
       >
-        <ArrowLeft className="w-3 h-3" /> Back to Collection
+        <ArrowLeft className="w-3 h-3" /> {t("detail.backCollectionCaps")}
       </Link>
 
       <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
@@ -115,7 +117,7 @@ function ProductDetail() {
         {/* DETAILS */}
         <div className="lg:pt-4">
           <p className="text-[10px] tracking-[0.4em] uppercase text-gold">
-            {product.category}
+            {category(product.category)}
           </p>
           <h1 className="font-display text-4xl lg:text-5xl mt-3 leading-tight">
             {product.name}
@@ -135,7 +137,7 @@ function ProductDetail() {
           <div>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground">
-                Color
+                {t("detail.color")}
               </h3>
               <span className="text-xs text-gold">{color.name}</span>
             </div>
@@ -167,7 +169,7 @@ function ProductDetail() {
               <button
                 onClick={() => setQty((q) => Math.max(1, q - 1))}
                 className="w-11 h-11 hover:text-gold transition-colors"
-                aria-label="Decrease"
+                aria-label={t("detail.decrease")}
               >
                 <Minus className="w-4 h-4 mx-auto" />
               </button>
@@ -175,7 +177,7 @@ function ProductDetail() {
               <button
                 onClick={() => setQty((q) => q + 1)}
                 className="w-11 h-11 hover:text-gold transition-colors"
-                aria-label="Increase"
+                aria-label={t("detail.increase")}
               >
                 <Plus className="w-4 h-4 mx-auto" />
               </button>
@@ -184,14 +186,14 @@ function ProductDetail() {
               onClick={handleAdd}
               className="flex-1 bg-gradient-gold text-primary-foreground px-8 py-3.5 text-xs tracking-[0.25em] uppercase font-semibold hover:opacity-90 transition-opacity shadow-gold"
             >
-              Add to Bag
+              {t("detail.addBag")}
             </button>
           </div>
 
           {/* DESCRIPTION */}
           <div className="mt-10">
             <h3 className="text-[10px] tracking-[0.3em] uppercase text-gold mb-4">
-              The Detail
+              {t("detail.detail")}
             </h3>
             <ul className="space-y-3 stagger">
               {product.description.map((line, i) => (
@@ -206,7 +208,7 @@ function ProductDetail() {
           {/* SPECS */}
           <div className="mt-10">
             <h3 className="text-[10px] tracking-[0.3em] uppercase text-gold mb-4">
-              Specifications
+              {t("detail.specs")}
             </h3>
             <dl className="grid grid-cols-2 gap-x-6 gap-y-3 border-t border-border pt-4">
               {Object.entries(product.specs).map(([k, v]) => (
@@ -224,10 +226,10 @@ function ProductDetail() {
       <section className="mt-24 lg:mt-32">
         <div className="text-center mb-12">
           <p className="text-[10px] tracking-[0.4em] uppercase text-gold">
-            Included
+            {t("detail.included")}
           </p>
           <h2 className="font-display text-3xl lg:text-4xl mt-3">
-            The Atelier Promise
+            {t("detail.promise")}
           </h2>
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 stagger">
@@ -249,7 +251,7 @@ function ProductDetail() {
       {related.length > 0 && (
         <section className="mt-24 lg:mt-32">
           <h2 className="font-display text-3xl lg:text-4xl mb-10">
-            You may also like
+            {t("detail.related")}
           </h2>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {related.map((p) => (
