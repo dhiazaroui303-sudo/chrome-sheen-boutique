@@ -99,34 +99,35 @@ function Home() {
             <div className="mt-10 flex flex-wrap gap-4">
               <Link
                 to="/products"
-                className="hero-action group inline-flex items-center gap-3 bg-gradient-gold text-primary-foreground px-8 py-4 text-xs tracking-[0.25em] uppercase font-semibold hover:opacity-90 transition-all shadow-gold hero-cta-motion"
+                className="hero-action group inline-flex items-center gap-3 bg-primary text-primary-foreground px-7 py-4 text-xs tracking-[0.18em] uppercase font-semibold hover:opacity-90 transition-all shadow-gold"
               >
                 {t("home.shop")}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 to="/about"
-                className="hero-action inline-flex items-center gap-3 border border-border hover:border-gold hover:text-gold px-8 py-4 text-xs tracking-[0.25em] uppercase font-semibold transition-colors"
+                className="hero-action inline-flex items-center gap-3 border border-border bg-background/55 backdrop-blur-sm hover:border-primary hover:text-primary px-7 py-4 text-xs tracking-[0.18em] uppercase font-semibold transition-colors"
               >
                 {t("home.craft")}
               </Link>
             </div>
 
-            <div className="mt-14 grid grid-cols-3 gap-6 max-w-md">
-              <div className="hero-stat">
-                <p className="font-display text-3xl text-gradient-gold">12</p>
+            <div className="mt-14 grid grid-cols-3 gap-4 max-w-lg">
+              <div className="hero-stat border-l border-border pl-4">
+                <HomeIcon className="w-5 h-5 text-primary mb-3" />
+                <p className="font-sans font-semibold text-3xl text-foreground">240+</p>
                 <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mt-1">
                   {t("home.stat1")}
                 </p>
               </div>
-              <div className="hero-stat">
-                <p className="font-display text-3xl text-gradient-gold">48</p>
+              <div className="hero-stat border-l border-border pl-4">
+                <p className="font-sans font-semibold text-3xl text-foreground">18</p>
                 <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mt-1">
                   {t("home.stat2")}
                 </p>
               </div>
-              <div className="hero-stat">
-                <p className="font-display text-3xl text-gradient-gold">∞</p>
+              <div className="hero-stat border-l border-border pl-4">
+                <p className="font-sans font-semibold text-3xl text-foreground">4.9</p>
                 <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mt-1">
                   {t("home.stat3")}
                 </p>
