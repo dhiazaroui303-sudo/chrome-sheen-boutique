@@ -29,13 +29,13 @@ function Home() {
     <div>
       {/* HERO */}
       <section className="relative min-h-[88vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 hero-ambient">
           <img
             src={heroImg}
             alt="Premium hair clipper"
             width={1920}
             height={1080}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover hero-image-motion"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/30" />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
@@ -44,14 +44,14 @@ function Home() {
         <div className="relative z-10 max-w-7xl mx-auto px-5 lg:px-10 py-20 grid lg:grid-cols-2 gap-10 items-center w-full">
           <div className="fade-up">
             <div className="flex items-center gap-3 mb-6">
-              <span className="h-px w-10 bg-gold" />
+              <span className="h-px w-10 bg-gold hero-line-motion" />
               <span className="text-[10px] tracking-[0.4em] uppercase text-gold">
                 {t("home.eyebrow")}
               </span>
             </div>
             <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl leading-[1.05]">
               {t("home.titleA")}
-              <span className="text-gradient-gold italic"> {t("home.titleB")} </span>
+              <span className="text-gradient-gold italic hero-gold-motion"> {t("home.titleB")} </span>
               {t("home.titleC")}
             </h1>
             <p className="mt-7 text-base lg:text-lg text-muted-foreground max-w-lg leading-relaxed">
@@ -60,7 +60,7 @@ function Home() {
             <div className="mt-10 flex flex-wrap gap-4">
               <Link
                 to="/products"
-                className="group inline-flex items-center gap-3 bg-gradient-gold text-primary-foreground px-8 py-4 text-xs tracking-[0.25em] uppercase font-semibold hover:opacity-90 transition-all shadow-gold"
+                className="group inline-flex items-center gap-3 bg-gradient-gold text-primary-foreground px-8 py-4 text-xs tracking-[0.25em] uppercase font-semibold hover:opacity-90 transition-all shadow-gold hero-cta-motion"
               >
                 {t("home.shop")}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
