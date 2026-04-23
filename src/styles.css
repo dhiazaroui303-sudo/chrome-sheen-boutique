@@ -205,8 +205,8 @@
   }
 
   .hero-image-motion {
-    animation: heroImageDrift 18s ease-in-out infinite alternate;
     transform-origin: center;
+    will-change: transform, opacity;
   }
 
   .hero-line-motion {

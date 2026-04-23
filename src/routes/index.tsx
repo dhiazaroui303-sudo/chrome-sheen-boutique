@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Award, Sparkles, Wrench } from "lucide-react";
+import { useEffect, useRef } from "react";
 import heroImg from "@/assets/hero.jpg";
 import { products, categories } from "@/data/products";
 import { ProductCard } from "@/components/ProductCard";
@@ -24,13 +25,51 @@ const featuredCats = categories.filter((c) => c.slug !== "all").slice(0, 4);
 function Home() {
   const featured = products.slice(0, 4);
   const { t, category } = useLanguage();
+  const heroRef = useRef<HTMLElement>(null);
+  const bgRef = useRef<HTMLImageElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let cleanup = () => {};
+
+    import("gsap").then(({ gsap }) => {
+      const hero = heroRef.current;
+      const bg = bgRef.current;
+      const content = contentRef.current;
+      if (!hero || !bg || !content) return;
+
+      const ctx = gsap.context(() => {
+        gsap.fromTo(bg, { scale: 1.16, xPercent: -2, opacity: 0.72 }, { scale: 1.06, xPercent: 0, opacity: 1, duration: 1.8, ease: "power3.out" });
+        gsap.fromTo(content.querySelectorAll(".hero-copy"), { x: -72, opacity: 0, filter: "blur(10px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 1, stagger: 0.14, ease: "power3.out", delay: 0.15 });
+        gsap.fromTo(content.querySelectorAll(".hero-action"), { y: 46, opacity: 0, scale: 0.94 }, { y: 0, opacity: 1, scale: 1, duration: 0.95, stagger: 0.12, ease: "back.out(1.7)", delay: 0.55 });
+        gsap.fromTo(content.querySelectorAll(".hero-stat"), { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.75, stagger: 0.1, ease: "power2.out", delay: 0.9 });
+      }, hero);
+
+      const moveX = gsap.quickTo(bg, "x", { duration: 0.8, ease: "power3.out" });
+      const moveY = gsap.quickTo(bg, "y", { duration: 0.8, ease: "power3.out" });
+      const onMove = (event: MouseEvent) => {
+        const rect = hero.getBoundingClientRect();
+        moveX(((event.clientX - rect.left) / rect.width - 0.5) * -28);
+        moveY(((event.clientY - rect.top) / rect.height - 0.5) * -18);
+      };
+
+      hero.addEventListener("mousemove", onMove);
+      cleanup = () => {
+        hero.removeEventListener("mousemove", onMove);
+        ctx.revert();
+      };
+    });
+
+    return () => cleanup();
+  }, []);
 
   return (
     <div>
       {/* HERO */}
-      <section className="relative min-h-[88vh] flex items-center overflow-hidden">
+      <section ref={heroRef} className="relative min-h-[88vh] flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0 hero-ambient">
           <img
+            ref={bgRef}
             src={heroImg}
             alt="Premium hair clipper"
             width={1920}
@@ -42,51 +81,51 @@ function Home() {
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-5 lg:px-10 py-20 grid lg:grid-cols-2 gap-10 items-center w-full">
-          <div className="fade-up">
-            <div className="flex items-center gap-3 mb-6">
+          <div ref={contentRef}>
+            <div className="hero-copy flex items-center gap-3 mb-6">
               <span className="h-px w-10 bg-gold hero-line-motion" />
               <span className="text-[10px] tracking-[0.4em] uppercase text-gold">
                 {t("home.eyebrow")}
               </span>
             </div>
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl leading-[1.05]">
+            <h1 className="hero-copy font-display text-5xl sm:text-6xl lg:text-7xl leading-[1.05]">
               {t("home.titleA")}
               <span className="text-gradient-gold italic hero-gold-motion"> {t("home.titleB")} </span>
               {t("home.titleC")}
             </h1>
-            <p className="mt-7 text-base lg:text-lg text-muted-foreground max-w-lg leading-relaxed">
+            <p className="hero-copy mt-7 text-base lg:text-lg text-muted-foreground max-w-lg leading-relaxed">
               {t("home.copy")}
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
               <Link
                 to="/products"
-                className="group inline-flex items-center gap-3 bg-gradient-gold text-primary-foreground px-8 py-4 text-xs tracking-[0.25em] uppercase font-semibold hover:opacity-90 transition-all shadow-gold hero-cta-motion"
+                className="hero-action group inline-flex items-center gap-3 bg-gradient-gold text-primary-foreground px-8 py-4 text-xs tracking-[0.25em] uppercase font-semibold hover:opacity-90 transition-all shadow-gold hero-cta-motion"
               >
                 {t("home.shop")}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 to="/about"
-                className="inline-flex items-center gap-3 border border-border hover:border-gold hover:text-gold px-8 py-4 text-xs tracking-[0.25em] uppercase font-semibold transition-colors"
+                className="hero-action inline-flex items-center gap-3 border border-border hover:border-gold hover:text-gold px-8 py-4 text-xs tracking-[0.25em] uppercase font-semibold transition-colors"
               >
                 {t("home.craft")}
               </Link>
             </div>
 
             <div className="mt-14 grid grid-cols-3 gap-6 max-w-md">
-              <div>
+              <div className="hero-stat">
                 <p className="font-display text-3xl text-gradient-gold">12</p>
                 <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mt-1">
                   {t("home.stat1")}
                 </p>
               </div>
-              <div>
+              <div className="hero-stat">
                 <p className="font-display text-3xl text-gradient-gold">48</p>
                 <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mt-1">
                   {t("home.stat2")}
                 </p>
               </div>
-              <div>
+              <div className="hero-stat">
                 <p className="font-display text-3xl text-gradient-gold">∞</p>
                 <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mt-1">
                   {t("home.stat3")}
