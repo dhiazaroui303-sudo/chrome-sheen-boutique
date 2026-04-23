@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Award, Sparkles, Wrench } from "lucide-react";
+import { ArrowRight, Award, HomeIcon, Sparkles, Wrench } from "lucide-react";
 import { useEffect, useRef } from "react";
-import heroImg from "@/assets/hero.jpg";
+import heroImg from "@/assets/real-estate-hero.jpg";
 import { products, categories } from "@/data/products";
 import { ProductCard } from "@/components/ProductCard";
 import { useLanguage } from "@/lib/i18n";
@@ -39,18 +39,18 @@ function Home() {
       if (!hero || !bg || !content) return;
 
       const ctx = gsap.context(() => {
-        gsap.fromTo(bg, { scale: 1.16, xPercent: -2, opacity: 0.72 }, { scale: 1.06, xPercent: 0, opacity: 1, duration: 1.8, ease: "power3.out" });
-        gsap.fromTo(content.querySelectorAll(".hero-copy"), { x: -72, opacity: 0, filter: "blur(10px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 1, stagger: 0.14, ease: "power3.out", delay: 0.15 });
-        gsap.fromTo(content.querySelectorAll(".hero-action"), { y: 46, opacity: 0, scale: 0.94 }, { y: 0, opacity: 1, scale: 1, duration: 0.95, stagger: 0.12, ease: "back.out(1.7)", delay: 0.55 });
-        gsap.fromTo(content.querySelectorAll(".hero-stat"), { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.75, stagger: 0.1, ease: "power2.out", delay: 0.9 });
+        gsap.fromTo(bg, { scale: 1.08, xPercent: -1, opacity: 0.9 }, { scale: 1.02, xPercent: 0, opacity: 1, duration: 1.6, ease: "power3.out" });
+        gsap.fromTo(content.querySelectorAll(".hero-copy"), { x: -48, opacity: 0, filter: "blur(8px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.95, stagger: 0.12, ease: "power3.out", delay: 0.1 });
+        gsap.fromTo(content.querySelectorAll(".hero-action"), { y: 34, opacity: 0, scale: 0.97 }, { y: 0, opacity: 1, scale: 1, duration: 0.85, stagger: 0.1, ease: "back.out(1.25)", delay: 0.45 });
+        gsap.fromTo(content.querySelectorAll(".hero-stat"), { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.65, stagger: 0.09, ease: "power2.out", delay: 0.78 });
       }, hero);
 
       const moveX = gsap.quickTo(bg, "x", { duration: 0.8, ease: "power3.out" });
       const moveY = gsap.quickTo(bg, "y", { duration: 0.8, ease: "power3.out" });
       const onMove = (event: MouseEvent) => {
         const rect = hero.getBoundingClientRect();
-        moveX(((event.clientX - rect.left) / rect.width - 0.5) * -28);
-        moveY(((event.clientY - rect.top) / rect.height - 0.5) * -18);
+        moveX(((event.clientX - rect.left) / rect.width - 0.5) * -16);
+        moveY(((event.clientY - rect.top) / rect.height - 0.5) * -10);
       };
 
       hero.addEventListener("mousemove", onMove);
@@ -66,31 +66,31 @@ function Home() {
   return (
     <div>
       {/* HERO */}
-      <section ref={heroRef} className="relative min-h-[88vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0 z-0 hero-ambient">
+      <section ref={heroRef} className="relative min-h-[88vh] flex items-center overflow-hidden bg-background">
+        <div className="absolute inset-0 z-0">
           <img
             ref={bgRef}
             src={heroImg}
-            alt="Premium hair clipper"
+            alt="Modern apartment community with landscaped walkway"
             width={1920}
-            height={1080}
-            className="w-full h-full object-cover hero-image-motion"
+            height={1088}
+            className="w-full h-full object-cover hero-image-motion hero-real-estate-image"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/30" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+          <div className="absolute inset-0 hero-real-estate-overlay" />
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-5 lg:px-10 py-20 grid lg:grid-cols-2 gap-10 items-center w-full">
           <div ref={contentRef}>
             <div className="hero-copy flex items-center gap-3 mb-6">
-              <span className="h-px w-10 bg-gold hero-line-motion" />
-              <span className="text-[10px] tracking-[0.4em] uppercase text-gold">
+              <span className="h-px w-10 bg-primary hero-line-motion" />
+              <span className="text-[10px] tracking-[0.32em] uppercase text-primary font-semibold">
                 {t("home.eyebrow")}
               </span>
             </div>
-            <h1 className="hero-copy font-display text-5xl sm:text-6xl lg:text-7xl leading-[1.05]">
+            <h1 className="hero-copy font-sans font-semibold text-5xl sm:text-6xl lg:text-7xl leading-[1.03] tracking-normal max-w-3xl">
               {t("home.titleA")}
-              <span className="text-gradient-gold italic hero-gold-motion"> {t("home.titleB")} </span>
+              <span className="text-primary hero-gold-motion"> {t("home.titleB")} </span>
               {t("home.titleC")}
             </h1>
             <p className="hero-copy mt-7 text-base lg:text-lg text-muted-foreground max-w-lg leading-relaxed">
@@ -99,34 +99,35 @@ function Home() {
             <div className="mt-10 flex flex-wrap gap-4">
               <Link
                 to="/products"
-                className="hero-action group inline-flex items-center gap-3 bg-gradient-gold text-primary-foreground px-8 py-4 text-xs tracking-[0.25em] uppercase font-semibold hover:opacity-90 transition-all shadow-gold hero-cta-motion"
+                className="hero-action group inline-flex items-center gap-3 bg-primary text-primary-foreground px-7 py-4 text-xs tracking-[0.18em] uppercase font-semibold hover:opacity-90 transition-all shadow-gold"
               >
                 {t("home.shop")}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 to="/about"
-                className="hero-action inline-flex items-center gap-3 border border-border hover:border-gold hover:text-gold px-8 py-4 text-xs tracking-[0.25em] uppercase font-semibold transition-colors"
+                className="hero-action inline-flex items-center gap-3 border border-border bg-background/55 backdrop-blur-sm hover:border-primary hover:text-primary px-7 py-4 text-xs tracking-[0.18em] uppercase font-semibold transition-colors"
               >
                 {t("home.craft")}
               </Link>
             </div>
 
-            <div className="mt-14 grid grid-cols-3 gap-6 max-w-md">
-              <div className="hero-stat">
-                <p className="font-display text-3xl text-gradient-gold">12</p>
+            <div className="mt-14 grid grid-cols-3 gap-4 max-w-lg">
+              <div className="hero-stat border-l border-border pl-4">
+                <HomeIcon className="w-5 h-5 text-primary mb-3" />
+                <p className="font-sans font-semibold text-3xl text-foreground">240+</p>
                 <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mt-1">
                   {t("home.stat1")}
                 </p>
               </div>
-              <div className="hero-stat">
-                <p className="font-display text-3xl text-gradient-gold">48</p>
+              <div className="hero-stat border-l border-border pl-4">
+                <p className="font-sans font-semibold text-3xl text-foreground">18</p>
                 <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mt-1">
                   {t("home.stat2")}
                 </p>
               </div>
-              <div className="hero-stat">
-                <p className="font-display text-3xl text-gradient-gold">∞</p>
+              <div className="hero-stat border-l border-border pl-4">
+                <p className="font-sans font-semibold text-3xl text-foreground">4.9</p>
                 <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mt-1">
                   {t("home.stat3")}
                 </p>
