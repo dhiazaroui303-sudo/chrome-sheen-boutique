@@ -3,9 +3,11 @@ import { ShoppingBag } from "lucide-react";
 import type { Product } from "@/data/products";
 import { useCart } from "@/hooks/use-cart";
 import { toast } from "sonner";
+import { useLanguage } from "@/lib/i18n";
 
 export function ProductCard({ product }: { product: Product }) {
   const { add } = useCart();
+  const { t, category } = useLanguage();
 
   const quickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -18,8 +20,8 @@ export function ProductCard({ product }: { product: Product }) {
       image: product.images[0],
       color: product.colors[0].name,
     });
-    toast.success(`${product.name} added`, {
-      description: `Color: ${product.colors[0].name}`,
+    toast.success(`${product.name} ${t("products.added")}`, {
+      description: `${t("products.colorLabel")}: ${product.colors[0].name}`,
     });
   };
 
@@ -47,7 +49,7 @@ export function ProductCard({ product }: { product: Product }) {
         <button
           onClick={quickAdd}
           className="absolute bottom-4 right-4 w-11 h-11 rounded-full bg-gradient-gold text-primary-foreground flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 shadow-gold"
-          aria-label="Quick add"
+          aria-label={t("products.quickAdd")}
         >
           <ShoppingBag className="w-4 h-4" />
         </button>
@@ -57,7 +59,7 @@ export function ProductCard({ product }: { product: Product }) {
         <div className="flex items-start justify-between gap-3">
           <div>
             <p className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground">
-              {product.category}
+              {category(product.category)}
             </p>
             <h3 className="font-display text-lg mt-1 group-hover:text-gold transition-colors">
               {product.name}

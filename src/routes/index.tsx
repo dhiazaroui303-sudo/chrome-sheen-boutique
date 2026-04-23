@@ -3,6 +3,7 @@ import { ArrowRight, Award, Sparkles, Wrench } from "lucide-react";
 import heroImg from "@/assets/hero.jpg";
 import { products, categories } from "@/data/products";
 import { ProductCard } from "@/components/ProductCard";
+import { useLanguage } from "@/lib/i18n";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -22,6 +23,7 @@ const featuredCats = categories.filter((c) => c.slug !== "all").slice(0, 4);
 
 function Home() {
   const featured = products.slice(0, 4);
+  const { t, category } = useLanguage();
 
   return (
     <div>
@@ -44,31 +46,30 @@ function Home() {
             <div className="flex items-center gap-3 mb-6">
               <span className="h-px w-10 bg-gold" />
               <span className="text-[10px] tracking-[0.4em] uppercase text-gold">
-                The 2026 Collection
+                {t("home.eyebrow")}
               </span>
             </div>
             <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl leading-[1.05]">
-              Tools forged for the
-              <span className="text-gradient-gold italic"> masters </span>
-              of the chair.
+              {t("home.titleA")}
+              <span className="text-gradient-gold italic"> {t("home.titleB")} </span>
+              {t("home.titleC")}
             </h1>
             <p className="mt-7 text-base lg:text-lg text-muted-foreground max-w-lg leading-relaxed">
-              Hand-engineered in limited series. Aerospace alloys, Japanese
-              steel, surgical motors. Built for those who refuse compromise.
+              {t("home.copy")}
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
               <Link
                 to="/products"
                 className="group inline-flex items-center gap-3 bg-gradient-gold text-primary-foreground px-8 py-4 text-xs tracking-[0.25em] uppercase font-semibold hover:opacity-90 transition-all shadow-gold"
               >
-                Shop Collection
+                {t("home.shop")}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 to="/about"
                 className="inline-flex items-center gap-3 border border-border hover:border-gold hover:text-gold px-8 py-4 text-xs tracking-[0.25em] uppercase font-semibold transition-colors"
               >
-                Our Craft
+                {t("home.craft")}
               </Link>
             </div>
 
@@ -76,19 +77,19 @@ function Home() {
               <div>
                 <p className="font-display text-3xl text-gradient-gold">12</p>
                 <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mt-1">
-                  Years of craft
+                  {t("home.stat1")}
                 </p>
               </div>
               <div>
                 <p className="font-display text-3xl text-gradient-gold">48</p>
                 <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mt-1">
-                  Countries served
+                  {t("home.stat2")}
                 </p>
               </div>
               <div>
                 <p className="font-display text-3xl text-gradient-gold">∞</p>
                 <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mt-1">
-                  Lifetime warranty
+                  {t("home.stat3")}
                 </p>
               </div>
             </div>
@@ -101,17 +102,17 @@ function Home() {
         <div className="flex items-end justify-between flex-wrap gap-4 mb-12">
           <div>
             <p className="text-[10px] tracking-[0.4em] uppercase text-gold">
-              Explore
+               {t("home.explore")}
             </p>
             <h2 className="font-display text-4xl lg:text-5xl mt-3">
-              The Collection
+              {t("home.collection")}
             </h2>
           </div>
           <Link
             to="/products"
             className="group inline-flex items-center gap-2 text-sm tracking-widest uppercase hover:text-gold transition-colors"
           >
-            View all
+            {t("home.viewAll")}
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
@@ -127,10 +128,10 @@ function Home() {
               <div className="absolute inset-0 bg-gradient-radial opacity-60" />
               <div className="relative">
                 <h3 className="font-display text-2xl group-hover:text-gold transition-colors">
-                  {cat.name}
+                  {category(cat.slug)}
                 </h3>
                 <span className="inline-flex items-center gap-2 mt-3 text-[10px] tracking-[0.25em] uppercase text-muted-foreground group-hover:text-gold transition-colors">
-                  Explore <ArrowRight className="w-3 h-3" />
+                  {t("home.cardExplore")} <ArrowRight className="w-3 h-3" />
                 </span>
               </div>
             </Link>
@@ -142,10 +143,10 @@ function Home() {
       <section className="py-20 lg:py-28 max-w-7xl mx-auto px-5 lg:px-10">
         <div className="text-center mb-14">
           <p className="text-[10px] tracking-[0.4em] uppercase text-gold">
-            Signature
+            {t("home.signature")}
           </p>
           <h2 className="font-display text-4xl lg:text-5xl mt-3">
-            Featured Pieces
+            {t("home.featured")}
           </h2>
           <div className="gold-divider w-24 mx-auto mt-6" />
         </div>
@@ -163,18 +164,18 @@ function Home() {
             {[
               {
                 icon: Sparkles,
-                title: "Innovation",
-                text: "Brushless motors, smart sensors, and aerospace alloys engineered with the world's leading material scientists.",
+                title: t("home.innovation"),
+                text: t("home.innovationText"),
               },
               {
                 icon: Award,
-                title: "Design",
-                text: "Form follows ritual. Every curve, weight and detail considered for hours of use, not minutes of impression.",
+                title: t("home.design"),
+                text: t("home.designText"),
               },
               {
                 icon: Wrench,
-                title: "Performance",
-                text: "Built to be owned for life. Maintained, sharpened and repaired in our atelier — never replaced.",
+                title: t("home.performance"),
+                text: t("home.performanceText"),
               },
             ].map((b) => (
               <div key={b.title} className="luxe-card p-10 rounded-sm">
