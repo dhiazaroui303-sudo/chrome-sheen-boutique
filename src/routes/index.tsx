@@ -66,31 +66,31 @@ function Home() {
   return (
     <div>
       {/* HERO */}
-      <section ref={heroRef} className="relative min-h-[88vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0 z-0 hero-ambient">
+      <section ref={heroRef} className="relative min-h-[88vh] flex items-center overflow-hidden bg-background">
+        <div className="absolute inset-0 z-0">
           <img
             ref={bgRef}
             src={heroImg}
-            alt="Premium hair clipper"
+            alt="Modern apartment community with landscaped walkway"
             width={1920}
-            height={1080}
-            className="w-full h-full object-cover hero-image-motion"
+            height={1088}
+            className="w-full h-full object-cover hero-image-motion hero-real-estate-image"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/30" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+          <div className="absolute inset-0 hero-real-estate-overlay" />
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-5 lg:px-10 py-20 grid lg:grid-cols-2 gap-10 items-center w-full">
           <div ref={contentRef}>
             <div className="hero-copy flex items-center gap-3 mb-6">
-              <span className="h-px w-10 bg-gold hero-line-motion" />
-              <span className="text-[10px] tracking-[0.4em] uppercase text-gold">
+              <span className="h-px w-10 bg-primary hero-line-motion" />
+              <span className="text-[10px] tracking-[0.32em] uppercase text-primary font-semibold">
                 {t("home.eyebrow")}
               </span>
             </div>
-            <h1 className="hero-copy font-display text-5xl sm:text-6xl lg:text-7xl leading-[1.05]">
+            <h1 className="hero-copy font-sans font-semibold text-5xl sm:text-6xl lg:text-7xl leading-[1.03] tracking-normal max-w-3xl">
               {t("home.titleA")}
-              <span className="text-gradient-gold italic hero-gold-motion"> {t("home.titleB")} </span>
+              <span className="text-primary hero-gold-motion"> {t("home.titleB")} </span>
               {t("home.titleC")}
             </h1>
             <p className="hero-copy mt-7 text-base lg:text-lg text-muted-foreground max-w-lg leading-relaxed">
