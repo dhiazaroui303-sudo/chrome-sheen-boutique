@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Award, HomeIcon, Sparkles, Wrench } from "lucide-react";
+import { ArrowRight, Award, Scissors, Sparkles, Wrench } from "lucide-react";
 import { useEffect, useRef } from "react";
-import heroImg from "@/assets/real-estate-hero.jpg";
+import heroImg from "@/assets/hero-tools.jpg";
 import { products, categories } from "@/data/products";
 import { ProductCard } from "@/components/ProductCard";
 import { useLanguage } from "@/lib/i18n";
