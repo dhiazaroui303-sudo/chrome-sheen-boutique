@@ -20,7 +20,13 @@ export const Route = createFileRoute("/")({
   }),
 });
 
-const featuredCats = categories.filter((c) => c.slug !== "all").slice(0, 4);
+const featuredCats = categories
+  .filter((c) => c.slug !== "all")
+  .slice(0, 4)
+  .map((cat) => ({
+    ...cat,
+    image: products.find((p) => p.category === cat.slug)?.images[0],
+  }));
 
 function Home() {
   const featured = products.slice(0, 4);
@@ -165,7 +171,17 @@ function Home() {
               search={{ category: cat.slug }}
               className="luxe-card group p-8 rounded-sm aspect-[3/4] flex flex-col justify-end relative overflow-hidden"
             >
-              <div className="absolute inset-0 bg-gradient-radial opacity-60" />
+              {cat.image && (
+                <img
+                  src={cat.image}
+                  alt={category(cat.slug)}
+                  loading="lazy"
+                  width={600}
+                  height={800}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-background/10 group-hover:from-background/95 transition-colors duration-500" />
               <div className="relative">
                 <h3 className="font-display text-2xl group-hover:text-gold transition-colors">
                   {category(cat.slug)}
