@@ -120,7 +120,7 @@ function Home() {
 
             <div className="mt-14 grid grid-cols-3 gap-4 max-w-lg">
               <div className="hero-stat border-l border-border pl-4">
-                <HomeIcon className="w-5 h-5 text-primary mb-3" />
+                <Scissors className="w-5 h-5 text-primary mb-3" />
                 <p className="font-sans font-semibold text-3xl text-foreground">240+</p>
                 <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mt-1">
                   {t("home.stat1")}
