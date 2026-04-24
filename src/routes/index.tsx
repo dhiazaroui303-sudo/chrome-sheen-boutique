@@ -77,13 +77,13 @@ function Home() {
           <img
             ref={bgRef}
             src={heroImg}
-            alt="Modern apartment community with landscaped walkway"
+            alt="Premium hair styling tools — clipper, shears and brush on a refined surface"
             width={1920}
             height={1088}
-            className="w-full h-full object-cover hero-image-motion hero-real-estate-image"
+            className="w-full h-full object-cover hero-image-motion"
           />
-          <div className="absolute inset-0 hero-real-estate-overlay" />
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent" />
+          <div className="absolute inset-0 hero-tools-overlay" />
+          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-5 lg:px-10 py-20 grid lg:grid-cols-2 gap-10 items-center w-full">
