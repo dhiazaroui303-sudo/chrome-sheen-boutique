@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Award, HomeIcon, Sparkles, Wrench } from "lucide-react";
+import { ArrowRight, Award, Scissors, Sparkles, Wrench } from "lucide-react";
 import { useEffect, useRef } from "react";
-import heroImg from "@/assets/real-estate-hero.jpg";
+import heroImg from "@/assets/hero-tools.jpg";
 import { products, categories } from "@/data/products";
 import { ProductCard } from "@/components/ProductCard";
 import { useLanguage } from "@/lib/i18n";
@@ -77,13 +77,13 @@ function Home() {
           <img
             ref={bgRef}
             src={heroImg}
-            alt="Modern apartment community with landscaped walkway"
+            alt="Premium hair styling tools — clipper, shears and brush on a refined surface"
             width={1920}
             height={1088}
-            className="w-full h-full object-cover hero-image-motion hero-real-estate-image"
+            className="w-full h-full object-cover hero-image-motion"
           />
-          <div className="absolute inset-0 hero-real-estate-overlay" />
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent" />
+          <div className="absolute inset-0 hero-tools-overlay" />
+          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-5 lg:px-10 py-20 grid lg:grid-cols-2 gap-10 items-center w-full">
@@ -120,7 +120,7 @@ function Home() {
 
             <div className="mt-14 grid grid-cols-3 gap-4 max-w-lg">
               <div className="hero-stat border-l border-border pl-4">
-                <HomeIcon className="w-5 h-5 text-primary mb-3" />
+                <Scissors className="w-5 h-5 text-primary mb-3" />
                 <p className="font-sans font-semibold text-3xl text-foreground">240+</p>
                 <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mt-1">
                   {t("home.stat1")}
